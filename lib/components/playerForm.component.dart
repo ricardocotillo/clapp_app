@@ -39,7 +39,7 @@ class PlayerFormComponent extends StatelessWidget {
               builderDelegate: PagedChildBuilderDelegate<User>(
                 itemBuilder: (context, user, i) => UserComponent(user: user),
               ),
-            )
+            ),
         ],
       ),
     );
