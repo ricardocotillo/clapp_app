@@ -14,7 +14,6 @@ class PlayerFormComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     final PlayerFormProvider playerFormProvider =
         Provider.of<PlayerFormProvider>(context);
-    final typing = playerFormProvider.typing;
     final textController = playerFormProvider.textController;
     return Form(
       child: Column(
