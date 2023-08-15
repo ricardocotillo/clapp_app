@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfileView extends StatefulWidget {
-  const ProfileView({super.key});
+  const ProfileView({super.key, required this.user});
+
+  final User user;
 
   @override
   State<ProfileView> createState() => _ProfileViewState();
@@ -30,7 +32,8 @@ class _ProfileViewState extends State<ProfileView> {
     _future = _authService.me();
     _commentsFuture = _commentService.list(
         filter: CommentFilter(
-      receiverMe: true,
+      objectId: widget.user.id,
+      model: 'user',
     ));
   }
 

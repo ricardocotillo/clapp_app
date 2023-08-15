@@ -13,7 +13,7 @@ class CommentService extends BaseService<Comment> {
   CommentService({required this.receiver});
 
   @override
-  String get base => '${Config.domain}/api/${receiver.name}-comments/';
+  String get base => '${Config.domain}/api/comments/';
 
   @override
   Future<CommentsPage> list({Filter? filter}) async {

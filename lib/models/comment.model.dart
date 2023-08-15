@@ -55,31 +55,22 @@ class CommentsPage extends BasePage<Comment> {
 }
 
 class CommentFilter extends Filter {
-  int? receiver;
-  int? sender;
-  bool? receiverMe;
-  bool? senderMe;
+  int? objectId;
+  String? model;
 
   CommentFilter({
-    this.receiver,
-    this.sender,
-    this.receiverMe,
-    this.senderMe,
+    this.objectId,
+    this.model,
   });
 
   @override
   String toString() {
-    String receiverParam = receiver != null ? 'receiver=$receiver' : '';
-    String senderrParam = sender != null ? 'sender=$sender' : '';
-    String receiverMeParam =
-        receiverMe != null ? 'receiver_me=$receiverMe' : '';
-    String senderMeParam = senderMe != null ? 'sender_me=$senderMe' : '';
+    String objectIdParam = objectId != null ? 'object_id=$objectId' : '';
+    String modelParam = model != null ? 'content_type__model=$model' : '';
 
     List<String> params = [
-      receiverParam,
-      senderrParam,
-      receiverMeParam,
-      senderMeParam,
+      objectIdParam,
+      modelParam,
     ].where((p) => p.isNotEmpty).toList();
     return params.isNotEmpty ? '?${params.join('&')}' : '';
   }

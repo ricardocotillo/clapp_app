@@ -24,7 +24,7 @@ class ClubProvider extends ChangeNotifier {
     Future.wait([
       _clubService.get(id),
       _membershipService.list(filter: MembershipFilter(club: id)),
-      _commentService.list(filter: CommentFilter(receiver: id)),
+      _commentService.list(filter: CommentFilter(objectId: id, model: 'club')),
     ]).then((value) {
       club = value[0] as Club;
       membershipsPage = value[1] as MembershipsPage;

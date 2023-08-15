@@ -24,14 +24,20 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   final HomeProvider homeProvider = HomeProvider();
-  final List<Widget> views = [
-    const HomeView(),
-    const ProfileView(),
-    const ClubsView(),
-    const CourtsView(),
-    const StoreView(),
-  ];
-  PreferredSizeWidget? appBar({
+  List<Widget> _tabs(User? user) {
+    return <Widget>[
+      const HomeView(),
+      if (user != null)
+        ProfileView(
+          user: user,
+        ),
+      const ClubsView(),
+      const CourtsView(),
+      const StoreView(),
+    ];
+  }
+
+  PreferredSizeWidget? _appBar({
     required int index,
     required User? user,
     required VoidCallback onPublish,
@@ -99,35 +105,36 @@ class _MainViewState extends State<MainView> {
     final ClubsProvider clubsProvider = Provider.of<ClubsProvider>(context);
     final user = authProvider.user;
     return Scaffold(
-      appBar: appBar(
+      appBar: _appBar(
         index: mainProvider.currentIndex,
         user: user,
         onPublish: () => homeProvider.publish(context),
       ),
-      body: views[mainProvider.currentIndex],
+      body: _tabs(user)[mainProvider.currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         fixedColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Theme.of(context).colorScheme.secondary,
         onTap: mainProvider.setTab,
         currentIndex: mainProvider.currentIndex,
-        items: const [
-          BottomNavigationBarItem(
+        items: [
+          const BottomNavigationBarItem(
             icon: Icon(LineAwesomeIcons.home),
             label: 'Inicio',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(LineAwesomeIcons.user),
-            label: 'Perfil',
-          ),
-          BottomNavigationBarItem(
+          if (user != null)
+            const BottomNavigationBarItem(
+              icon: Icon(LineAwesomeIcons.user),
+              label: 'Perfil',
+            ),
+          const BottomNavigationBarItem(
             icon: Icon(LineAwesomeIcons.users),
             label: 'Equipos',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(LineAwesomeIcons.map_marker),
             label: 'Canchas',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(LineAwesomeIcons.store),
             label: 'Tienda',
           ),

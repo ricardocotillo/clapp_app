@@ -18,7 +18,7 @@ class PlayerProvider extends ChangeNotifier {
     Future.wait([
       _userService.get(id),
       _commentService.list(
-        filter: CommentFilter(receiver: id),
+        filter: CommentFilter(objectId: id, model: 'user'),
       ),
     ]).then((values) {
       user = values[0] as User;
