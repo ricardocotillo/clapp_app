@@ -14,7 +14,7 @@ Club _$ClubFromJson(Map<String, dynamic> json) => Club(
       name: json['name'] as String,
       logo: json['logo'] as String?,
       images: (json['images'] as List<dynamic>?)
-          ?.map((e) => ClubImage.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => AppImage.fromJson(e as Map<String, dynamic>))
           .toList(),
       membersCount: json['members_count'] as int?,
       createdAt: json['created_at'] as String?,

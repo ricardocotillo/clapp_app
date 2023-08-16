@@ -12,7 +12,7 @@ class Club {
   Sport? sport;
   String name;
   String? logo;
-  List<ClubImage>? images;
+  List<AppImage>? images;
   @JsonKey(name: 'members_count', includeToJson: false)
   final int? membersCount;
   @JsonKey(name: 'created_at', includeToJson: false)
