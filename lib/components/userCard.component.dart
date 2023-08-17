@@ -11,6 +11,7 @@ class UserCardComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final image = user.image;
     return Container(
       margin: const EdgeInsets.all(16.0),
       padding: const EdgeInsets.all(16.0),
@@ -26,14 +27,15 @@ class UserCardComponent extends StatelessWidget {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ClipOval(
-                child: CachedNetworkImage(
-                  imageUrl: user.image,
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.cover,
+              if (image != null)
+                ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: image,
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
               Text(
                 user.fullName,
                 style: AppTheme.headers.headerBase,

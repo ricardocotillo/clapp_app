@@ -10,6 +10,7 @@ class CommentComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final image = comment.owner.image;
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
@@ -30,14 +31,15 @@ class CommentComponent extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             children: [
-              ClipOval(
-                child: CachedNetworkImage(
-                  imageUrl: comment.owner.image,
-                  width: 30,
-                  height: 30,
-                  fit: BoxFit.cover,
+              if (image != null)
+                ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: image,
+                    width: 30,
+                    height: 30,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
               const SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

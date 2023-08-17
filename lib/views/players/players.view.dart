@@ -35,16 +35,18 @@ class _PlayersViewState extends State<PlayersView> {
           pagingController: playersProvider.pagingController,
           builderDelegate: PagedChildBuilderDelegate<Membership>(
             itemBuilder: (context, member, i) => ListTile(
-              leading: CircleAvatar(
-                child: ClipOval(
-                  child: CachedNetworkImage(
-                    imageUrl: member.user.image,
-                    width: 36,
-                    height: 36,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+              leading: member.user.image != null
+                  ? CircleAvatar(
+                      child: ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl: member.user.image!,
+                          width: 36,
+                          height: 36,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : null,
               title: Text(member.user.fullName),
               subtitle: Text(member.role),
               trailing: IconButton(

@@ -18,7 +18,7 @@ class User {
   @JsonKey(name: 'last_name')
   String lastName;
   @HiveField(4)
-  String image;
+  String? image;
   @HiveField(5)
   double? rating;
   @HiveField(6)

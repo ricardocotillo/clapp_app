@@ -48,14 +48,15 @@ class _MainViewState extends State<MainView> {
   }) {
     switch (index) {
       case 0:
+        final image = user?.image;
         return AppBar(
-          leading: user?.image != null
+          leading: image != null
               ? Padding(
                   padding: const EdgeInsets.only(left: 16.0),
                   child: CircleAvatar(
                     child: ClipOval(
                       child: CachedNetworkImage(
-                        imageUrl: user!.image,
+                        imageUrl: image,
                         width: 36,
                       ),
                     ),

@@ -77,15 +77,16 @@ class ClubView extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        CircleAvatar(
-                          radius: 38,
-                          child: ClipOval(
-                            child: CachedNetworkImage(
-                              imageUrl: members[i].user.image,
-                              width: 70,
+                        if (members[i].user.image != null)
+                          CircleAvatar(
+                            radius: 38,
+                            child: ClipOval(
+                              child: CachedNetworkImage(
+                                imageUrl: members[i].user.image!,
+                                width: 70,
+                              ),
                             ),
                           ),
-                        ),
                         Text(
                           members[i].user.fullName,
                           style: AppTheme.headers.headerSm,

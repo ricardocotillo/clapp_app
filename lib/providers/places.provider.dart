@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class PlacesProvider extends ChangeNotifier {
-  final PagingController<int, Place> _pagingController =
+  final PagingController<int, Place> pagingController =
       PagingController(firstPageKey: 1);
   PlacePage placePage = PlacePage();
   final PlaceService _placeService = PlaceService();
@@ -13,7 +13,7 @@ class PlacesProvider extends ChangeNotifier {
       );
 
   PlacesProvider() {
-    _pagingController.addPageRequestListener((_) {
+    pagingController.addPageRequestListener((_) {
       getPlaces(_placeFilter);
     });
   }
@@ -21,9 +21,9 @@ class PlacesProvider extends ChangeNotifier {
   getPlaces(PlaceFilter filter) async {
     final page = await _placeService.list(filter: filter);
     if (!page.hasNext) {
-      _pagingController.appendLastPage(page.results);
+      pagingController.appendLastPage(page.results);
     } else {
-      _pagingController.appendPage(page.results, page.next);
+      pagingController.appendPage(page.results, page.next);
     }
   }
 }

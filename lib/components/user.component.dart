@@ -9,17 +9,20 @@ class UserComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final image = user.image;
     return ListTile(
-      leading: CircleAvatar(
-        child: ClipOval(
-          child: CachedNetworkImage(
-            imageUrl: user.image,
-            width: 36,
-            height: 36,
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
+      leading: image != null
+          ? CircleAvatar(
+              child: ClipOval(
+                child: CachedNetworkImage(
+                  imageUrl: image,
+                  width: 36,
+                  height: 36,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            )
+          : null,
       title: Text(user.fullName),
       subtitle: Text(user.email),
     );
