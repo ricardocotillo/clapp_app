@@ -23,10 +23,10 @@ class User {
   double? rating;
   @HiveField(6)
   @JsonKey(name: 'matches_assisted')
-  int matchesAssisted;
+  int? matchesAssisted;
   @HiveField(7)
   @JsonKey(name: 'matches_abandoned')
-  int matchesAbandoned;
+  int? matchesAbandoned;
 
   User({
     required this.id,

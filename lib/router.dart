@@ -12,6 +12,7 @@ import 'package:clapp/views/clubs/allClubs.view.dart';
 import 'package:clapp/views/clubs/club.view.dart';
 import 'package:clapp/views/main.view.dart';
 import 'package:clapp/views/auth/login.view.dart';
+import 'package:clapp/views/places/place.view.dart';
 import 'package:clapp/views/players/player.view.dart';
 import 'package:clapp/views/players/players.view.dart';
 import 'package:clapp/views/profile/editProfile.view.dart';
@@ -54,6 +55,11 @@ final router = GoRouter(
             create: (_) => RegisterProvider(),
             child: const RegisterView(),
           ),
+        ),
+        GoRoute(
+          path: 'place/:id',
+          name: 'place',
+          builder: (context, state) => const PlaceView(),
         ),
         GoRoute(
           path: 'user/edit',

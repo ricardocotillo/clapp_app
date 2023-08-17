@@ -23,8 +23,8 @@ class UserAdapter extends TypeAdapter<User> {
       lastName: fields[3] as String,
       image: fields[4] as String?,
       rating: fields[5] as double?,
-      matchesAssisted: fields[6] as int,
-      matchesAbandoned: fields[7] as int,
+      matchesAssisted: fields[6] as int?,
+      matchesAbandoned: fields[7] as int?,
     );
   }
 
@@ -72,8 +72,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       lastName: json['last_name'] as String,
       image: json['image'] as String?,
       rating: (json['rating'] as num?)?.toDouble(),
-      matchesAssisted: json['matches_assisted'] as int,
-      matchesAbandoned: json['matches_abandoned'] as int,
+      matchesAssisted: json['matches_assisted'] as int?,
+      matchesAbandoned: json['matches_abandoned'] as int?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{

@@ -12,6 +12,8 @@ class UserCardComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final image = user.image;
+    final matchesAssisted = user.matchesAbandoned;
+    final matchesAbandoned = user.matchesAbandoned;
     return Container(
       margin: const EdgeInsets.all(16.0),
       padding: const EdgeInsets.all(16.0),
@@ -73,8 +75,8 @@ class UserCardComponent extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    user.matchesAssisted > 0
-                        ? user.matchesAssisted.toString()
+                    matchesAssisted != null && matchesAssisted > 0
+                        ? matchesAssisted.toString()
                         : '--',
                     style: AppTheme.headers.headerXl,
                   ),
@@ -98,8 +100,8 @@ class UserCardComponent extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    user.matchesAbandoned > 0
-                        ? user.matchesAbandoned.toString()
+                    matchesAbandoned != null && matchesAbandoned > 0
+                        ? matchesAbandoned.toString()
                         : '--',
                     style: AppTheme.headers.headerXl,
                   ),

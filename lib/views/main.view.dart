@@ -8,7 +8,7 @@ import 'package:clapp/providers/places.provider.dart';
 import 'package:clapp/theme.dart';
 import 'package:clapp/views/clubs/clubs.view.dart';
 import 'package:clapp/views/home.view.dart';
-import 'package:clapp/views/places.view.dart';
+import 'package:clapp/views/places/places.view.dart';
 import 'package:clapp/views/profile/profile.view.dart';
 import 'package:clapp/views/store.view.dart';
 import 'package:flutter/material.dart';

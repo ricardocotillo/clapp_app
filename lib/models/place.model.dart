@@ -25,6 +25,8 @@ class Place {
     required this.sports,
   });
 
+  String get fullAddress => '$address, $district - $city';
+
   factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
 }
 
