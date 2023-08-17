@@ -9,7 +9,10 @@ class PlacesProvider extends ChangeNotifier {
   PlacePage placePage = PlacePage();
   final PlaceService _placeService = PlaceService();
   PlaceFilter get _placeFilter => PlaceFilter(
-        params: {'page': placePage.next},
+        params: {
+          'page': placePage.next,
+          'fields': 'id,name,address,district,city',
+        },
       );
 
   PlacesProvider() {

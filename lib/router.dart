@@ -4,6 +4,7 @@ import 'package:clapp/providers/club.provider.dart';
 import 'package:clapp/providers/allClubs.provider.dart';
 import 'package:clapp/providers/login.provider.dart';
 import 'package:clapp/providers/main.provider.dart';
+import 'package:clapp/providers/place.provider.dart';
 import 'package:clapp/providers/player.provider.dart';
 import 'package:clapp/providers/players.provider.dart';
 import 'package:clapp/providers/profile.provider.dart';
@@ -59,7 +60,14 @@ final router = GoRouter(
         GoRoute(
           path: 'place/:id',
           name: 'place',
-          builder: (context, state) => const PlaceView(),
+          builder: (context, state) {
+            return ChangeNotifierProvider(
+              create: (_) => PlaceProvider(
+                id: int.parse(state.pathParameters.values.first),
+              ),
+              child: const PlaceView(),
+            );
+          },
         ),
         GoRoute(
           path: 'user/edit',

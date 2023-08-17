@@ -1,4 +1,6 @@
+import 'package:clapp/models/court.model.dart';
 import 'package:clapp/models/filter.model.dart';
+import 'package:clapp/models/image.model.dart';
 import 'package:clapp/models/page.model.dart';
 import 'package:clapp/models/sport.model.dart';
 import 'package:clapp/models/user.model.dart';
@@ -8,24 +10,37 @@ part 'place.model.g.dart';
 @JsonSerializable(createToJson: false)
 class Place {
   final int id;
-  final User owner;
-  final String name;
-  final String address;
-  final String district;
-  final String city;
-  final List<Sport> sports;
+  final User? owner;
+  final String? name;
+  final String? address;
+  final String? district;
+  final String? city;
+  final List<AppImage>? images;
+  final List<Court>? courts;
 
   Place({
     required this.id,
-    required this.owner,
-    required this.name,
-    required this.address,
-    required this.district,
-    required this.city,
-    required this.sports,
+    this.owner,
+    this.name,
+    this.address,
+    this.district,
+    this.city,
+    this.images,
+    this.courts,
   });
 
   String get fullAddress => '$address, $district - $city';
+
+  Map<Sport, List<Court>> get groupedCourts {
+    final grouped = <Sport, List<Court>>{};
+    courts?.forEach((c) {
+      final sport = c.sport;
+      sport != null && grouped.containsKey(sport)
+          ? (grouped[sport] as List).add(c)
+          : grouped[sport!] = [c];
+    });
+    return grouped;
+  }
 
   factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
 }
@@ -53,7 +68,10 @@ class PlaceFilter extends Filter {
   @override
   String toString() {
     if (params.isNotEmpty) {
-      final p = params.keys.map((k) => '$k=${params[k]}').join('&');
+      final p = params.keys
+          .where((k) => params[k] != null)
+          .map((k) => '$k=${params[k]}')
+          .join('&');
       return '?$p';
     }
     return '';

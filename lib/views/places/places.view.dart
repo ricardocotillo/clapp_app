@@ -17,7 +17,7 @@ class PlacesView extends StatelessWidget {
         pagingController: placesProvider.pagingController,
         builderDelegate: PagedChildBuilderDelegate<Place>(
           itemBuilder: (context, place, i) => ListTile(
-            title: Text(place.name),
+            title: Text(place.name ?? ''),
             subtitle: Text(place.fullAddress),
             trailing: IconButton(
               onPressed: () => context.pushNamed(

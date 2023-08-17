@@ -8,13 +8,18 @@ part of 'place.model.dart';
 
 Place _$PlaceFromJson(Map<String, dynamic> json) => Place(
       id: json['id'] as int,
-      owner: User.fromJson(json['owner'] as Map<String, dynamic>),
-      name: json['name'] as String,
-      address: json['address'] as String,
-      district: json['district'] as String,
-      city: json['city'] as String,
-      sports: (json['sports'] as List<dynamic>)
-          .map((e) => Sport.fromJson(e as Map<String, dynamic>))
+      owner: json['owner'] == null
+          ? null
+          : User.fromJson(json['owner'] as Map<String, dynamic>),
+      name: json['name'] as String?,
+      address: json['address'] as String?,
+      district: json['district'] as String?,
+      city: json['city'] as String?,
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => AppImage.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      courts: (json['courts'] as List<dynamic>?)
+          ?.map((e) => Court.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

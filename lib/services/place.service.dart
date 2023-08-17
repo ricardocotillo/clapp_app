@@ -16,13 +16,17 @@ class PlaceService extends BaseService<Place> {
   }
 
   @override
-  Future<Place> get(int id) {
-    throw UnimplementedError();
+  Future<Place> get(int id) async {
+    final url = '$base/$id';
+    final uri = Uri.parse(url);
+    final res = await http.get(uri, headers: await headers);
+    final j = jsonDecode(utf8.decode(res.bodyBytes));
+    return Place.fromJson(j);
   }
 
   @override
   Future<PlacePage> list({Filter? filter}) async {
-    final url = '$base/';
+    final url = '$base/$filter';
     final uri = Uri.parse(url);
     final res = await http.get(
       uri,
