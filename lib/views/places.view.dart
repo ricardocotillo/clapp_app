@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CourtsView extends StatelessWidget {
-  const CourtsView({super.key});
+class PlacesView extends StatelessWidget {
+  const PlacesView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
+    return const SafeArea(
+      child: Center(
         child: Text('Canchas'),
       ),
     );

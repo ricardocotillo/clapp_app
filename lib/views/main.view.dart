@@ -4,10 +4,11 @@ import 'package:clapp/providers/auth.provider.dart';
 import 'package:clapp/providers/clubs.provider.dart';
 import 'package:clapp/providers/home.provider.dart';
 import 'package:clapp/providers/main.provider.dart';
+import 'package:clapp/providers/places.provider.dart';
 import 'package:clapp/theme.dart';
 import 'package:clapp/views/clubs/clubs.view.dart';
-import 'package:clapp/views/courts.view.dart';
 import 'package:clapp/views/home.view.dart';
+import 'package:clapp/views/places.view.dart';
 import 'package:clapp/views/profile/profile.view.dart';
 import 'package:clapp/views/store.view.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,10 @@ class _MainViewState extends State<MainView> {
           user: user,
         ),
       const ClubsView(),
-      const CourtsView(),
+      ChangeNotifierProvider(
+        create: (_) => PlacesProvider(),
+        child: const PlacesView(),
+      ),
       const StoreView(),
     ];
   }

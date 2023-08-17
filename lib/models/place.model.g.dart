@@ -17,3 +17,13 @@ Place _$PlaceFromJson(Map<String, dynamic> json) => Place(
           .map((e) => Sport.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
+
+PlacePage _$PlacePageFromJson(Map<String, dynamic> json) => PlacePage(
+      count: json['count'] as int? ?? 0,
+      results: (json['results'] as List<dynamic>?)
+              ?.map((e) => Place.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      next: json['next'] as int?,
+      previous: json['previous'] as int?,
+    );
