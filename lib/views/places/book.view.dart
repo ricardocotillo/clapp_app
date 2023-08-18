@@ -10,10 +10,14 @@ class BookView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bookProvider = Provider.of<BookProvider>(context);
+    final court = bookProvider.court;
     final days = bookProvider.days;
     final selectedDay = bookProvider.selectedDay;
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(court?.name ?? ''),
+      ),
       body: SafeArea(
         child: Column(
           children: [
