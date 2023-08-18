@@ -19,7 +19,7 @@ class CommentService extends BaseService<Comment> {
   Future<CommentsPage> list({Filter? filter}) async {
     String url = base;
     if (filter != null) {
-      url += filter.toString();
+      url += filter.urlParams;
     }
     final uri = Uri.parse(url);
     final res = await http.get(

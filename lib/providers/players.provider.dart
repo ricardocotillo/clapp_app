@@ -1,4 +1,5 @@
 import 'package:clapp/components/playerForm.component.dart';
+import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/membership.model.dart';
 import 'package:clapp/providers/playerForm.provider.dart';
 import 'package:clapp/services/membership.service.dart';
@@ -12,8 +13,10 @@ class PlayersProvider {
       PagingController(firstPageKey: 1);
   MembershipsPage page = MembershipsPage();
   final MembershipService _membershipService = MembershipService();
-  MembershipFilter get filter => MembershipFilter(
-        club: clubId,
+  Filter get filter => Filter(
+        params: {
+          'club': clubId,
+        },
         page: page.next,
       );
 
@@ -23,7 +26,7 @@ class PlayersProvider {
     });
   }
 
-  getPlayers(MembershipFilter filter) {
+  getPlayers(Filter filter) {
     _membershipService.list(filter: filter).then((p) {
       page = p;
       if (!page.hasNext) {

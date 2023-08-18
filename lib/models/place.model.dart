@@ -57,23 +57,3 @@ class PlacePage extends BasePage<Place> {
   factory PlacePage.fromJson(Map<String, dynamic> json) =>
       _$PlacePageFromJson(json);
 }
-
-class PlaceFilter extends Filter {
-  Map<String, dynamic> params;
-
-  PlaceFilter({
-    this.params = const {},
-  });
-
-  @override
-  String toString() {
-    if (params.isNotEmpty) {
-      final p = params.keys
-          .where((k) => params[k] != null)
-          .map((k) => '$k=${params[k]}')
-          .join('&');
-      return '?$p';
-    }
-    return '';
-  }
-}

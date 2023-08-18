@@ -1,6 +1,7 @@
 import 'package:clapp/components/commentForm.component.dart';
 import 'package:clapp/models/club.model.dart';
 import 'package:clapp/models/comment.model.dart';
+import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/membership.model.dart';
 import 'package:clapp/models/user.model.dart';
 import 'package:clapp/services/club.service.dart';
@@ -21,11 +22,26 @@ class ClubProvider extends ChangeNotifier {
   CommentsPage commentsPage = CommentsPage();
 
   ClubProvider({required int id}) {
-    Future.wait([
-      _clubService.get(id),
-      _membershipService.list(filter: MembershipFilter(club: id)),
-      _commentService.list(filter: CommentFilter(objectId: id, model: 'club')),
-    ]).then((value) {
+    Future.wait(
+      [
+        _clubService.get(id),
+        _membershipService.list(
+          filter: Filter(
+            params: {
+              'club': id,
+            },
+          ),
+        ),
+        _commentService.list(
+          filter: Filter(
+            params: {
+              'object_id': id,
+              'model': 'club',
+            },
+          ),
+        ),
+      ],
+    ).then((value) {
       club = value[0] as Club;
       membershipsPage = value[1] as MembershipsPage;
       commentsPage = value[2] as CommentsPage;

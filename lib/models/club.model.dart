@@ -1,4 +1,3 @@
-import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/image.model.dart';
 import 'package:clapp/models/page.model.dart';
 import 'package:clapp/models/sport.model.dart';

@@ -2,6 +2,7 @@ import 'package:clapp/components/carousel.component.dart';
 import 'package:clapp/components/comment.component.dart';
 import 'package:clapp/components/userCard.component.dart';
 import 'package:clapp/models/comment.model.dart';
+import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/user.model.dart';
 import 'package:clapp/services/auth.service.dart';
 import 'package:clapp/services/comment.service.dart';
@@ -31,10 +32,13 @@ class _ProfileViewState extends State<ProfileView> {
     super.initState();
     _future = _authService.me();
     _commentsFuture = _commentService.list(
-        filter: CommentFilter(
-      objectId: widget.user.id,
-      model: 'user',
-    ));
+      filter: Filter(
+        params: {
+          'object_id': widget.user.id,
+          'model': 'user',
+        },
+      ),
+    );
   }
 
   @override

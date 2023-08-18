@@ -1,4 +1,3 @@
-import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/page.model.dart';
 import 'package:clapp/models/user.model.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -55,11 +54,4 @@ class PublicationsPage extends BasePage<Publication> {
       _$PublicationsPageFromJson(json);
 
   Map<String, dynamic> toJson() => _$PublicationsPageToJson(this);
-}
-
-class PublicationFilter extends Filter {
-  @override
-  String toString() {
-    return '';
-  }
 }

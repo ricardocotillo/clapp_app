@@ -1,4 +1,3 @@
-import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/page.model.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:hive/hive.dart';
@@ -58,18 +57,4 @@ class UsersPage extends BasePage<User> {
 
   factory UsersPage.fromJson(Map<String, dynamic> json) =>
       _$UsersPageFromJson(json);
-}
-
-class UserFilter extends Filter {
-  UserFilter({
-    super.search,
-  });
-
-  @override
-  String toString() {
-    List<String> params = [
-      searchParam,
-    ].where((p) => p.isNotEmpty).toList();
-    return params.isNotEmpty ? '?${params.join('&')}' : '';
-  }
 }

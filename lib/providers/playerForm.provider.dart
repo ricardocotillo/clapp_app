@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/user.model.dart';
 import 'package:clapp/services/user.service.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class PlayerFormProvider {
   final textController = TextEditingController();
   final _userService = UserService();
   final usersPage = UsersPage();
-  final filter = UserFilter();
+  final filter = Filter();
   bool typing = false;
   Timer? timer;
 

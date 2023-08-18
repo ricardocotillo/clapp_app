@@ -1,4 +1,3 @@
-import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/page.model.dart';
 import 'package:clapp/models/user.model.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -48,23 +47,4 @@ class MembershipsPage extends BasePage<Membership> {
   factory MembershipsPage.fromJson(Map<String, dynamic> json) =>
       _$MembershipsPageFromJson(json);
   Map<String, dynamic> toJson() => _$MembershipsPageToJson(this);
-}
-
-class MembershipFilter extends Filter {
-  int? club;
-
-  MembershipFilter({
-    this.club,
-    super.page,
-  });
-
-  @override
-  String toString() {
-    final String clubParam = club != null ? 'club=$club' : '';
-    final List<String> params = [
-      clubParam,
-      pageParam,
-    ].where((p) => p.isNotEmpty).toList();
-    return params.isNotEmpty ? '?${params.join('&')}' : '';
-  }
 }

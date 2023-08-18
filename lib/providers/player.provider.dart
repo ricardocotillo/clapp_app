@@ -1,5 +1,6 @@
 import 'package:clapp/components/commentForm.component.dart';
 import 'package:clapp/models/comment.model.dart';
+import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/user.model.dart';
 import 'package:clapp/services/comment.service.dart';
 import 'package:clapp/services/user.service.dart';
@@ -18,7 +19,7 @@ class PlayerProvider extends ChangeNotifier {
     Future.wait([
       _userService.get(id),
       _commentService.list(
-        filter: CommentFilter(objectId: id, model: 'user'),
+        filter: Filter(params: {'object_id': id, 'nodel': 'user'}),
       ),
     ]).then((values) {
       user = values[0] as User;

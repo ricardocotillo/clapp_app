@@ -1,3 +1,4 @@
+import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/place.model.dart';
 import 'package:clapp/services/place.service.dart';
 import 'package:flutter/widgets.dart';
@@ -8,7 +9,7 @@ class PlacesProvider extends ChangeNotifier {
       PagingController(firstPageKey: 1);
   PlacePage placePage = PlacePage();
   final PlaceService _placeService = PlaceService();
-  PlaceFilter get _placeFilter => PlaceFilter(
+  Filter get _placeFilter => Filter(
         params: {
           'page': placePage.next,
           'fields': 'id,name,address,district,city',
@@ -21,7 +22,7 @@ class PlacesProvider extends ChangeNotifier {
     });
   }
 
-  getPlaces(PlaceFilter filter) async {
+  getPlaces(Filter filter) async {
     final page = await _placeService.list(filter: filter);
     if (!page.hasNext) {
       pagingController.appendLastPage(page.results);

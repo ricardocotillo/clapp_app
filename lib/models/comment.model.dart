@@ -1,4 +1,3 @@
-import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/page.model.dart';
 import 'package:clapp/models/user.model.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -52,28 +51,6 @@ class CommentsPage extends BasePage<Comment> {
       _$CommentsPageFromJson(json);
 
   Map<String, dynamic> toJson() => _$CommentsPageToJson(this);
-}
-
-class CommentFilter extends Filter {
-  int? objectId;
-  String? model;
-
-  CommentFilter({
-    this.objectId,
-    this.model,
-  });
-
-  @override
-  String toString() {
-    String objectIdParam = objectId != null ? 'object_id=$objectId' : '';
-    String modelParam = model != null ? 'content_type__model=$model' : '';
-
-    List<String> params = [
-      objectIdParam,
-      modelParam,
-    ].where((p) => p.isNotEmpty).toList();
-    return params.isNotEmpty ? '?${params.join('&')}' : '';
-  }
 }
 
 enum CommentType {

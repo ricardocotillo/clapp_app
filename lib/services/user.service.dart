@@ -14,7 +14,7 @@ class UserService extends BaseService<User> {
   Future<UsersPage> list({Filter? filter}) async {
     var url = '$base/';
     if (filter != null) {
-      url += filter.toString();
+      url += filter.urlParams;
     }
     final uri = Uri.parse(url);
     final res = await http.get(

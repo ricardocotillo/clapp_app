@@ -1,4 +1,3 @@
-import 'package:clapp/models/filter.model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'booking.model.g.dart';
 
@@ -19,8 +18,4 @@ class Booking {
   factory Booking.fromJson(Map<String, dynamic> json) =>
       _$BookingFromJson(json);
   Map<String, dynamic> toJson() => _$BookingToJson(this);
-}
-
-class BookingFilter extends Filter {
-  Map<String, dynamic> filter = const {};
 }
