@@ -26,7 +26,7 @@ class PlaceService extends BaseService<Place> {
 
   @override
   Future<PlacePage> list({Filter? filter}) async {
-    final url = '$base/$filter';
+    final url = '$base/${filter?.urlParams ?? ''}';
     final uri = Uri.parse(url);
     final res = await http.get(
       uri,
