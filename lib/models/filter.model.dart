@@ -12,13 +12,18 @@ class Filter {
   String get searchParam => search != null ? 'search=$search' : '';
 
   String get urlParams {
-    String p = '?$searchParam&$pageParam';
+    var p =
+        <String>[searchParam, pageParam].where((e) => e.isNotEmpty).toList();
+
+    String queryParams = '';
     if (params.isNotEmpty) {
       p += params.keys
           .where((k) => params[k] != null)
           .map((k) => '$k=${params[k]}')
-          .join('&');
+          .toList();
+      queryParams += p.join('&');
     }
-    return p;
+    if (queryParams.isNotEmpty) return '?$queryParams';
+    return '';
   }
 }

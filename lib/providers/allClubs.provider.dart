@@ -25,9 +25,15 @@ class AllClubsProvider extends ChangeNotifier {
     });
   }
 
-  Filter get filter => Filter(
-        params: {'sport': selectedSports.join('&')},
-      );
+  Filter get filter {
+    final sports = selectedSports.isNotEmpty ? selectedSports.join(',') : null;
+    final params = <String, dynamic>{};
+    if (sports != null) params['sport'] = sports;
+    return Filter(
+      params: params,
+    );
+  }
+
   Future<ClubsPage> fetchClubs() {
     return _clubService.list(filter: filter);
   }
