@@ -1,18 +1,20 @@
 import 'package:clapp/models/club.model.dart';
+import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/sport.model.dart';
 import 'package:clapp/services/club.service.dart';
 import 'package:clapp/services/sport.service.dart';
 import 'package:flutter/material.dart';
 
 class AllClubsProvider extends ChangeNotifier {
-  ClubFilter filter;
+  // Filter filter;
   List<Club> clubs = [];
   ClubsPage page = ClubsPage();
   SportsPage sportsPage = SportsPage();
   final ClubService _clubService = ClubService();
   final SportService _sportService = SportService();
+  final selectedSports = <int>[];
 
-  AllClubsProvider({required this.filter}) {
+  AllClubsProvider() {
     final s = _sportService.list();
     final c = fetchClubs();
     Future.wait([c, s]).then((values) {
@@ -23,13 +25,9 @@ class AllClubsProvider extends ChangeNotifier {
     });
   }
 
-  updateFilter(ClubFilter f) async {
-    filter = f;
-    final p = await fetchClubs();
-    resetClubsPage(p);
-    notifyListeners();
-  }
-
+  Filter get filter => Filter(
+        params: {'sport': selectedSports.join('&')},
+      );
   Future<ClubsPage> fetchClubs() {
     return _clubService.list(filter: filter);
   }

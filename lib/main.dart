@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:clapp/models/club.model.dart';
 import 'package:clapp/models/token.model.dart';
 import 'package:clapp/models/user.model.dart';
 import 'package:clapp/providers/auth.provider.dart';
@@ -45,7 +44,7 @@ void main() async {
           ),
           ChangeNotifierProvider<ClubsProvider>(
             create: (_) => ClubsProvider(
-              filter: ClubFilter(members: userId != null ? [userId] : []),
+              userId: userId,
             ),
           ),
         ],

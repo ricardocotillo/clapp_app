@@ -1,5 +1,5 @@
-import 'package:clapp/models/club.model.dart';
 import 'package:clapp/providers/auth.provider.dart';
+import 'package:clapp/providers/book.provider.dart';
 import 'package:clapp/providers/club.provider.dart';
 import 'package:clapp/providers/allClubs.provider.dart';
 import 'package:clapp/providers/login.provider.dart';
@@ -13,6 +13,7 @@ import 'package:clapp/views/clubs/allClubs.view.dart';
 import 'package:clapp/views/clubs/club.view.dart';
 import 'package:clapp/views/main.view.dart';
 import 'package:clapp/views/auth/login.view.dart';
+import 'package:clapp/views/places/book.view.dart';
 import 'package:clapp/views/places/place.view.dart';
 import 'package:clapp/views/players/player.view.dart';
 import 'package:clapp/views/players/players.view.dart';
@@ -70,6 +71,18 @@ final router = GoRouter(
           },
         ),
         GoRoute(
+          path: 'book/:id',
+          name: 'book',
+          builder: (context, state) {
+            return ChangeNotifierProvider(
+              create: (_) => BookProvider(
+                courtId: int.parse(state.pathParameters.values.first),
+              ),
+              child: const BookView(),
+            );
+          },
+        ),
+        GoRoute(
           path: 'user/edit',
           builder: (context, state) => ChangeNotifierProvider(
             create: (_) => ProfileProvider(),
@@ -80,9 +93,7 @@ final router = GoRouter(
           path: 'clubs',
           name: 'clubs',
           builder: (context, state) => ChangeNotifierProvider(
-            create: (_) => AllClubsProvider(
-              filter: ClubFilter(),
-            ),
+            create: (_) => AllClubsProvider(),
             child: const AllClubsView(),
           ),
           routes: [

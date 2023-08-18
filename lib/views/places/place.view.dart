@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clapp/providers/place.provider.dart';
@@ -63,20 +64,27 @@ class PlaceView extends StatelessWidget {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: courts.keys
-                    .map((k) => Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: courts[k]!
-                              .map((c) => ListTile(
-                                    leading: Icon(c.sport?.icon),
-                                    title: Text(c.name ?? ''),
-                                    subtitle: Text(c.formattedPrice),
-                                    trailing: TextButton(
-                                      onPressed: () {},
-                                      child: const Text('Reservar'),
-                                    ),
-                                  ))
-                              .toList(),
-                        ))
+                    .map(
+                      (k) => Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: courts[k]!
+                            .map(
+                              (c) => ListTile(
+                                leading: Icon(c.sport?.icon),
+                                title: Text(c.name ?? ''),
+                                subtitle: Text(c.formattedPrice),
+                                trailing: TextButton(
+                                  onPressed: () => context.pushNamed(
+                                    'book',
+                                    pathParameters: {'id': c.id.toString()},
+                                  ),
+                                  child: const Text('Reservar'),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    )
                     .toList(),
               ),
             SizedBox(

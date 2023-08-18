@@ -1,5 +1,6 @@
 import 'package:clapp/components/clubForm.component.dart';
 import 'package:clapp/models/club.model.dart';
+import 'package:clapp/models/filter.model.dart';
 import 'package:clapp/models/sport.model.dart';
 import 'package:clapp/services/club.service.dart';
 import 'package:clapp/services/sport.service.dart';
@@ -8,14 +9,17 @@ import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
 class ClubsProvider extends ChangeNotifier {
-  ClubFilter filter;
+  // Filter filter;
+  final int? userId;
   List<Club> clubs = [];
   ClubsPage page = ClubsPage();
   SportsPage sportsPage = SportsPage();
   final ClubService _clubService = ClubService();
   final SportService _sportService = SportService();
 
-  ClubsProvider({required this.filter}) {
+  Filter get filter => Filter(params: {'members': userId});
+
+  ClubsProvider({this.userId}) {
     final s = _sportService.list();
     final c = fetchClubs();
     Future.wait([c, s]).then((values) {

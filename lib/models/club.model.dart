@@ -53,34 +53,3 @@ class ClubsPage extends BasePage<Club> {
 
   Map<String, dynamic> toJson() => _$ClubsPageToJson(this);
 }
-
-class ClubFilter extends Filter {
-  int? owner;
-  List<int>? members;
-  List<int>? sport;
-
-  ClubFilter({
-    this.owner,
-    this.members,
-    this.sport,
-    super.page,
-  });
-
-  @override
-  String toString() {
-    String pageParam = page != null ? 'page=$page' : '';
-    String ownerParam = owner != null ? 'owner=$owner' : '';
-    String membersParam =
-        members != null ? members!.map((m) => 'members=$m').join('&') : '';
-    String sportParam = sport != null
-        ? 'sport=${sport!.map((s) => s.toString()).join(',')}'
-        : '';
-    List<String> params = [
-      pageParam,
-      ownerParam,
-      membersParam,
-      sportParam,
-    ].where((p) => p.isNotEmpty).toList();
-    return params.isNotEmpty ? '?${params.join('&')}' : '';
-  }
-}

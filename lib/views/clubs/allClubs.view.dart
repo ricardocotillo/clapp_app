@@ -13,7 +13,7 @@ class AllClubsView extends StatelessWidget {
         Provider.of<AllClubsProvider>(context);
     final clubs = clubsProvider.clubs;
     final sports = clubsProvider.sportsPage.results;
-    final filter = clubsProvider.filter;
+    final selectedSports = clubsProvider.selectedSports;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -28,18 +28,13 @@ class AllClubsView extends StatelessWidget {
                   right: i == sports.length - 1 ? 16.0 : 0,
                 ),
                 child: FilterChip(
-                  selected: filter.sport?.contains(sports[i].id) ?? false,
+                  selected: selectedSports.contains(sports[i].id),
                   label: Text(sports[i].name),
                   onSelected: (v) {
-                    final f = clubsProvider.filter;
                     if (v) {
-                      f.sport != null
-                          ? f.sport?.add(sports[i].id)
-                          : f.sport = [sports[i].id];
-                      clubsProvider.updateFilter(f);
+                      selectedSports.add(sports[i].id);
                     } else {
-                      f.sport?.removeWhere((s) => s == sports[i].id);
-                      clubsProvider.updateFilter(f);
+                      selectedSports.removeWhere((s) => s == sports[i].id);
                     }
                   },
                 ),
