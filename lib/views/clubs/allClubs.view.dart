@@ -36,6 +36,7 @@ class AllClubsView extends StatelessWidget {
                     } else {
                       selectedSports.removeWhere((s) => s == sports[i].id);
                     }
+                    clubsProvider.updateResults();
                   },
                 ),
               ),

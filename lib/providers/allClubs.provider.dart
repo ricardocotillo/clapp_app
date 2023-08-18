@@ -34,6 +34,12 @@ class AllClubsProvider extends ChangeNotifier {
     );
   }
 
+  updateResults() async {
+    final p = await fetchClubs();
+    resetClubsPage(p);
+    notifyListeners();
+  }
+
   Future<ClubsPage> fetchClubs() {
     return _clubService.list(filter: filter);
   }
