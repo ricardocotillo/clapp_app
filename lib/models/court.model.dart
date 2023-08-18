@@ -27,5 +27,7 @@ class Court {
     required this.sport,
   });
 
+  String get formattedPrice => 'S/$price';
+
   factory Court.fromJson(Map<String, dynamic> json) => _$CourtFromJson(json);
 }

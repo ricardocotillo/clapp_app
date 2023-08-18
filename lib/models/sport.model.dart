@@ -1,5 +1,7 @@
 import 'package:clapp/models/page.model.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 part 'sport.model.g.dart';
 
 @JsonSerializable()
@@ -11,6 +13,14 @@ class Sport {
     required this.id,
     required this.name,
   });
+
+  IconData get icon => name == 'Básquetbol'
+      ? LineAwesomeIcons.basketball_ball
+      : name == 'Fútbol'
+          ? LineAwesomeIcons.futbol
+          : name == 'Voley'
+              ? LineAwesomeIcons.volleyball_ball
+              : LineAwesomeIcons.table_tennis;
 
   factory Sport.fromJson(Map<String, dynamic> json) => _$SportFromJson(json);
   Map<String, dynamic> toJson() => _$SportToJson(this);
