@@ -1,3 +1,4 @@
+import 'package:clapp/models/page.model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'booking.model.g.dart';
 
@@ -18,4 +19,17 @@ class Booking {
   factory Booking.fromJson(Map<String, dynamic> json) =>
       _$BookingFromJson(json);
   Map<String, dynamic> toJson() => _$BookingToJson(this);
+}
+
+@JsonSerializable(createToJson: false)
+class BookingsPage extends BasePage<Booking> {
+  BookingsPage({
+    super.count,
+    super.results,
+    super.next,
+    super.previous,
+  });
+
+  factory BookingsPage.fromJson(Map<String, dynamic> json) =>
+      _$BookingsPageFromJson(json);
 }

@@ -14,6 +14,7 @@ class BookView extends StatelessWidget {
     final days = bookProvider.days;
     final selectedDay = bookProvider.selectedDay;
     final Size size = MediaQuery.of(context).size;
+    final slots = bookProvider.slots;
     return Scaffold(
       appBar: AppBar(
         title: Text(court?.name ?? ''),

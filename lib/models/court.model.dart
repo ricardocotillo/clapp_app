@@ -1,5 +1,7 @@
 import 'package:clapp/models/image.model.dart';
 import 'package:clapp/models/sport.model.dart';
+import 'package:duration/duration.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'court.model.g.dart';
 
@@ -28,6 +30,22 @@ class Court {
   });
 
   String get formattedPrice => 'S/$price';
+  TimeOfDay? get startHour {
+    if (start == null) return null;
+    final parts = start!.split(':').map((s) => int.parse(s)).toList();
+    return TimeOfDay(hour: parts[0], minute: parts[1]);
+  }
+
+  TimeOfDay? get endHour {
+    if (end == null) return null;
+    final parts = end!.split(':').map((s) => int.parse(s)).toList();
+    return TimeOfDay(hour: parts[0], minute: parts[1]);
+  }
+
+  Duration? get blockDuration {
+    if (duration == null) return null;
+    return parseTime('$duration.000000');
+  }
 
   factory Court.fromJson(Map<String, dynamic> json) => _$CourtFromJson(json);
 }

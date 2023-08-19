@@ -19,3 +19,13 @@ Map<String, dynamic> _$BookingToJson(Booking instance) => <String, dynamic>{
       'end': instance.end,
       'status': instance.status,
     };
+
+BookingsPage _$BookingsPageFromJson(Map<String, dynamic> json) => BookingsPage(
+      count: json['count'] as int? ?? 0,
+      results: (json['results'] as List<dynamic>?)
+              ?.map((e) => Booking.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      next: json['next'] as int?,
+      previous: json['previous'] as int?,
+    );
