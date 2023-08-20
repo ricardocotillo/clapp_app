@@ -5,8 +5,10 @@ import 'package:clapp/services/booking.service.dart';
 import 'package:clapp/services/court.service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:toast/toast.dart';
 
 class BookProvider extends ChangeNotifier {
+  int? userId;
   Court? court;
   var bookingsPage = BookingsPage();
   final bookingService = BookingService();
@@ -14,6 +16,15 @@ class BookProvider extends ChangeNotifier {
   final DateTime now = DateTime.now();
   List<DateTimeRange> selectedSlots = <DateTimeRange>[];
   int selectedDay = 0;
+
+  Filter get filter => Filter(
+        params: {
+          'court': court?.id,
+          'start_date': DateFormat('y-MM-dd').format(days[selectedDay]),
+        },
+      );
+
+  List<Booking> get bookings => bookingsPage.results;
 
   List<DateTime> get days => List.generate(
         7,
@@ -24,13 +35,6 @@ class BookProvider extends ChangeNotifier {
         ),
       );
 
-  Filter get filter => Filter(
-        params: {
-          'court': court?.id,
-          'start_date': DateFormat('y-MM-dd').format(days[selectedDay]),
-        },
-      );
-
   List<DateTimeRange> get slots {
     final startHour = court?.startHour;
     final endHour = court?.endHour;
@@ -38,10 +42,20 @@ class BookProvider extends ChangeNotifier {
     if (startHour == null || endHour == null || duration == null) {
       return [];
     }
-    final start = days[selectedDay]
-        .copyWith(hour: startHour.hour, minute: startHour.minute);
-    final end =
-        days[selectedDay].copyWith(hour: endHour.hour, minute: endHour.minute);
+    final start = days[selectedDay].copyWith(
+      hour: startHour.hour,
+      minute: startHour.minute,
+      second: 0,
+      millisecond: 0,
+      microsecond: 0,
+    );
+    final end = days[selectedDay].copyWith(
+      hour: endHour.hour,
+      minute: endHour.minute,
+      second: 0,
+      millisecond: 0,
+      microsecond: 0,
+    );
     final diff = end.difference(start);
     final num = diff.inMinutes ~/ duration.inMinutes;
     return List.generate(
@@ -68,7 +82,25 @@ class BookProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  BookProvider({required int courtId}) {
+  onSave(BuildContext context) async {
+    final promises = selectedSlots
+        .map(
+          (s) => Booking(
+            user: userId,
+            court: court?.id,
+            start: s.start.subtract(s.start.timeZoneOffset).toString(),
+            end: s.end.subtract(s.end.timeZoneOffset).toString(),
+          ),
+        )
+        .map((b) => bookingService.create(b));
+    await Future.wait(promises);
+    if (context.mounted) {
+      ToastContext().init(context);
+      Toast.show('Reserva creada');
+    }
+  }
+
+  BookProvider({required int courtId, this.userId}) {
     Future.wait([
       courtService.get(courtId),
       bookingService.list(filter: filter),

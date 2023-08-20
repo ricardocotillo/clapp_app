@@ -16,6 +16,7 @@ class BookView extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final slots = bookProvider.slots;
     final selectedSlots = bookProvider.selectedSlots;
+    final bookings = bookProvider.bookings;
     return Scaffold(
       appBar: AppBar(
         title: Text(court?.name ?? ''),
@@ -67,6 +68,7 @@ class BookView extends StatelessWidget {
                 crossAxisCount: 3,
               ),
               itemBuilder: (context, i) => RawChip(
+                isEnabled: bookings.where((b) => b.contains(slots[i])).isEmpty,
                 selected: selectedSlots.contains(slots[i]),
                 backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                 selectedColor: Theme.of(context).colorScheme.primary,
@@ -74,13 +76,21 @@ class BookView extends StatelessWidget {
                 label: Text(
                   '${DateFormat('HH:mm').format(slots[i].start)} - ${DateFormat('HH:mm').format(slots[i].end)}',
                   style: AppTheme.fontSizes.xsStyle.copyWith(
-                    color:
-                        selectedSlots.contains(slots[i]) ? Colors.white : null,
+                    color: selectedSlots.contains(slots[i])
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : null,
                   ),
                 ),
                 onSelected: (_) => bookProvider.onSelected(slots[i]),
               ),
             ),
+            if (selectedSlots.isNotEmpty)
+              MaterialButton(
+                onPressed: () => bookProvider.onSave(context),
+                color: Theme.of(context).colorScheme.primary,
+                textColor: Theme.of(context).colorScheme.onPrimary,
+                child: const Text('Guardar'),
+              )
           ],
         ),
       ),

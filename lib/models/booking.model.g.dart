@@ -8,17 +8,31 @@ part of 'booking.model.dart';
 
 Booking _$BookingFromJson(Map<String, dynamic> json) => Booking(
       id: json['id'] as int?,
+      court: json['court'] as int?,
+      user: json['user'] as int?,
       start: json['start'] as String,
       end: json['end'] as String,
-      status: json['status'] as String,
+      status: json['status'] as String?,
     );
 
-Map<String, dynamic> _$BookingToJson(Booking instance) => <String, dynamic>{
-      'id': instance.id,
-      'start': instance.start,
-      'end': instance.end,
-      'status': instance.status,
-    };
+Map<String, dynamic> _$BookingToJson(Booking instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'user': instance.user,
+    'court': instance.court,
+    'start': instance.start,
+    'end': instance.end,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('status', instance.status);
+  return val;
+}
 
 BookingsPage _$BookingsPageFromJson(Map<String, dynamic> json) => BookingsPage(
       count: json['count'] as int? ?? 0,

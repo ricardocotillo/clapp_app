@@ -19,6 +19,9 @@ class BookingService extends BaseService<Booking> {
       body: jsonEncode(model),
       headers: await headers,
     );
+    if (res.statusCode == 400) {
+      print(res.body);
+    }
     final j = jsonDecode(utf8.decode(res.bodyBytes));
     return Booking.fromJson(j);
   }

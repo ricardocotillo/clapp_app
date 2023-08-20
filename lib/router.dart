@@ -76,6 +76,8 @@ final router = GoRouter(
           builder: (context, state) {
             return ChangeNotifierProvider(
               create: (_) => BookProvider(
+                userId:
+                    Provider.of<AuthProvider>(context, listen: false).user?.id,
                 courtId: int.parse(state.pathParameters.values.first),
               ),
               child: const BookView(),
