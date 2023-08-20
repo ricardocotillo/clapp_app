@@ -11,8 +11,16 @@ class BookingService extends BaseService<Booking> {
   String get base => '${Config.base}/bookings';
 
   @override
-  Future<Booking> create(Booking model) {
-    throw UnimplementedError();
+  Future<Booking> create(Booking model) async {
+    final url = '$base/';
+    final uri = Uri.parse(url);
+    final res = await http.post(
+      uri,
+      body: jsonEncode(model),
+      headers: await headers,
+    );
+    final j = jsonDecode(utf8.decode(res.bodyBytes));
+    return Booking.fromJson(j);
   }
 
   @override
