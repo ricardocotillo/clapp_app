@@ -76,5 +76,7 @@ class ClubProvider extends ChangeNotifier {
         child: ChallengeForm(),
       ),
     );
+
+    if (match) {}
   }
 }
