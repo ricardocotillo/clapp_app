@@ -1,4 +1,5 @@
 import 'package:clapp/components/commentForm.component.dart';
+import 'package:clapp/forms/challenge.form.dart';
 import 'package:clapp/models/club.model.dart';
 import 'package:clapp/models/comment.model.dart';
 import 'package:clapp/models/filter.model.dart';
@@ -66,5 +67,14 @@ class ClubProvider extends ChangeNotifier {
       commentsPage.results.insert(0, comment);
       notifyListeners();
     }
+  }
+
+  openChallengeDialog(BuildContext context) async {
+    final match = await showDialog(
+      context: context,
+      builder: (context) => const Dialog(
+        child: ChallengeForm(),
+      ),
+    );
   }
 }

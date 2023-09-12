@@ -7,6 +7,7 @@ import 'package:clapp/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class ClubView extends StatelessWidget {
   const ClubView({super.key});
@@ -23,6 +24,15 @@ class ClubView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(club.name),
+        actions: members.isEmpty ||
+                members.any((m) => m.id == authProvider.user?.id)
+            ? null
+            : [
+                IconButton(
+                  onPressed: () => clubProvider.openChallengeDialog(context),
+                  icon: const Icon(LineAwesomeIcons.lightning_bolt),
+                ),
+              ],
       ),
       body: SingleChildScrollView(
         child: Column(
